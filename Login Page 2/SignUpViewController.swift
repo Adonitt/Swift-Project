@@ -8,22 +8,35 @@
 import UIKit
 
 class SignUpViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var firstNameTextField: UITextField!
+    
+    @IBOutlet weak var lastNameTextField: UITextField!
+    
+    @IBOutlet weak var usernameTextField: UITextField!
+    
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func signupbtn(_ sender: Any) {
+        performSegue(withIdentifier: "goToHomeFromSignUp", sender: self)
     }
-    */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToHomeFromSignUp" {
+            if let destinationVC = segue.destination as? HomeViewController {
+                let user = User(
+                    username: usernameTextField.text ?? "",
+                    password: passwordTextField.text ?? "",
+                    firstName: firstNameTextField.text ?? "",
+                    lastName: lastNameTextField.text ?? ""
+                )
+                destinationVC.user = user
+            }
+        }
+    }}
 
-}

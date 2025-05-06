@@ -1,29 +1,39 @@
-//
-//  LoginViewController.swift
-//  Login Page 2
-//
-//  Created by Festim Bunjaku on 5/4/25.
-//
 
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBOutlet weak var emailLabel: UILabel!
+    
+    var email = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if email.isEmpty {
+            emailLabel.isHidden = true
+        } else {
+            emailLabel.isHidden = false
+            emailLabel.text = "A link has been sent to: \(email)"
+        }    }
+    
+    @IBAction func loginBnt(_ sender: Any) {
+        performSegue(withIdentifier: "goToHome", sender: self)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func signUpBtn(_ sender: Any) {
+        performSegue(withIdentifier: "goToSignUp", sender: self)
     }
-    */
-
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToHome" {
+            if let destinationVC = segue.destination as? HomeViewController {
+                destinationVC.username = usernameTextField.text ?? ""
+                destinationVC.password = passwordTextField.text ?? ""
+            }
+        }
+    }
 }
